@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\MuseumController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Models\Museum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('guest')->group(function () {
     Route::post('register', [RegisterController::class, 'register']);
     Route::post('login', [LoginController::class, 'login']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::resource('museums', MuseumController::class)->except(['create', 'edit']);
 });
